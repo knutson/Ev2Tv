@@ -1,15 +1,12 @@
 
-      ! correct Tv is 6414 K
-
+      ! in arrays, the order of diatomic species is N2, O2, NO
+ 
       program main
 
       implicit none
-      real*8 :: rhoN2,rhoO2,rhoNO,rhos(3),Ev,T,Tv
+      real*8 :: rhos(3),Ev,T,Tv
 
-      rhoN2 = 0.0256d0
-      rhoO2 = 0.0013d0
-      rhoNO = 0.0022d0
-      rhos(:) = (/rhoN2, rhoO2, rhoNO/)
+      rhos(:) = (/0.0256d0, 0.0013d0, 0.0022d0/)
       Ev = 4.191210435081368d+4
 
       T = 5000.0d0 ! initial guess
@@ -19,15 +16,13 @@
       contains
 
       function Tv_from_Ev(rhos,Ev,T) result(Tv)
+
       implicit none
-      
       real*8, intent(IN) :: rhos(3),Ev,T
       real*8 :: Tv
-
       real*8 :: R = 8.3145d0 ! J/(mol*K)
       real*8 :: M(3) = (/28.0d-3, 32.0d-3, 30.0d-3/) ! kg/mol
       real*8 :: thetav(3) = (/3395.0d0, 2239.0d0, 2817.0d0/) ! K
-     
       real*8 :: evs(3),F,dF,dTv
 
       Tv = T ! initial guess
